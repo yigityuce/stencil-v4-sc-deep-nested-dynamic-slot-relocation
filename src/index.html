@@ -10,5 +10,32 @@
   </head>
   <body>
     <my-component></my-component>
+    <button onclick="randomize()">Randomize Item Count</button>
   </body>
+
+  <script>
+    function randomize() {
+      const component = document.querySelector('my-component');
+
+      for (const item of Array.from(component?.querySelectorAll('.default-slot-item') || [])) {
+        item.remove();
+      }
+
+      const min = 1;
+      const max = 20;
+      const count = Math.floor(Math.random() * (max - min + 1)) + min;
+      const items = Array.from(new Array(count)).map((_, i) => {
+        const element = document.createElement('span');
+        element.className = 'default-slot-item';
+        element.textContent = `item-${i}`;
+        return element;
+      });
+
+      for (const item of items) {
+        component?.appendChild(item);
+      }
+    }
+
+    randomize();
+  </script>
 </html>
